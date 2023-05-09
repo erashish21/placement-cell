@@ -1,10 +1,11 @@
-<nav>
+  <link rel="stylesheet" href="/css/Addstudent.css">
+  <nav>
   <a href="/employee/dashboard">Home</a>
   </nav>
-
-<h1>Add Student </h1>
+  <div class="container">
+     <h1>Add Student </h1>
     <form action="/employee/addstudent" method="POST">
-        <div class="container">
+        
           <div class="form-group">
               <label for="name">Batch</label>
               <input type="text" class="form-control" name="batch" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Batch" required>
@@ -39,9 +40,6 @@
             <input type="text" class="form-control" name="React_final_score" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter React_final_score" required>
         </div>
           
-          <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-          </div>
+          
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>

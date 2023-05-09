@@ -4,12 +4,12 @@
 }
 nav{
     padding:15px;
-    background-color: rgb(3,45,107);
+    background-color: RGB(0, 155, 119);
     margin-top: -0.4%;
     width: 100%;
 }
 nav > a:hover{
-    border-bottom: 4px solid orange;
+    
     padding-bottom: 11px;
 }
 a{
