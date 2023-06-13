@@ -1,25 +1,24 @@
-
 const Student = require('../models/student');
 const Interview = require('../models/interview');
-//render interview page
-module.exports.interviewPage = async function(req , res){
+module.exports.interviewPage = async function (req, res) {
     const studentList = await Student.find({});
     const interview_list = await Interview.find({});
     return res.render('interview', {
         title: "Interview List",
         studentList: studentList,
         interview_list: interview_list
+
     });
 }
 
 // form for interview allocation
 module.exports.interviewForm = async function (req, res) {
-    return res.render('interview_form_Allocation', {
+    return res.render('formForInterviewAllocation', {
         title: "Interview Allocation",
         id: req.params.id
-    });
+    })
 }
-module.exports.InterviewAllocation = async function(req , res){
+module.exports.interviewAllocation = async function (req, res) {
     try {
         const companyPresent = await Interview.findOne({ companyName: req.body.companyName });
         if (companyPresent) {
@@ -58,5 +57,4 @@ module.exports.InterviewAllocation = async function(req , res){
     }
 
 }
-
 

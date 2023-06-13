@@ -1,31 +1,29 @@
-
-<link rel="stylesheet" href="/css/signup.css">
-<div class="container">
-  <h1>Sign Up</h1>
-<form action="/employee/create" method="post">
-  
-    <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" required>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password" required>
-    </div>
-    <div class="form-group">
-        <label for="confirmPassword1">Confirm Password</label>
-        <input type="password" class="form-control" name="confirm_password" id="exampleInputPassword1" placeholder="Re-Enter Password" required>
-    </div>
-    
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-  <p>
-    <a  href="/employee/auth/google">Google Sign In /Sign Up</a>
-</p>
+<link rel="stylesheet" href="/css/signUp.css">
+<nav>
+    <a href="/">Sign In</a>
+</nav>
+<section>
+    <div class="container">
+    <h1>Sign Up To Account</h1>
+    <form id ="form" action="/create_session" method="POST">
+        <% if(firstNameError != null){ %>
+             <small><%- firstNameError %></small><br>
+        <%}%>
+        <input id="firstname" type=text name="firstname" placeholder="Enter First Name"><br>
+        <% if(lastNameError != null){ %>
+            <small><%- lastNameError %></small><br>
+       <%}%>
+        <input id="lastname" type=text name="lastname" placeholder="Enter Last Name"><br>
+        <% if(emailError != null){ %>
+            <small><%- emailError %></small><br>
+       <%}%>
+        <input id="email" type=text name="email" placeholder="Enter The Email"><br>
+        <% if(passwordError != null){ %>
+            <small><%- passwordError %></small><br>
+       <%}%>
+        <input id="password" type=password name="password" placeholder="Enter The Password"><i class="fa-solid fa-circle-check"></i>&nbsp;<i class="fa-solid fa-circle-exclamation"></i><br><br>
+        <button id="button" type="submit">Submit</button>
+    </form>
 </div>
-  
+</section>
+

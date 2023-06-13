@@ -3,6 +3,7 @@ body{
 }
 nav{
     position: fixed;
+    color: white;
 }
 section{
     display: inline-block;

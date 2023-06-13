@@ -7,10 +7,10 @@ const fs = require('fs');
 // employee dashboard list
 module.exports.dashboard = async function (req, res) {
     const studentList = await Student.find({});
-    return res.render('dashboard', {
+    return res.render('employeeDashboard', {
         title: "EmployeeDashboard",
         studentList: studentList
-    });
+    })
 }
 
 // add student page
@@ -37,7 +37,6 @@ module.exports.addStudent = async function (req, res) {
             }
         }
     } catch (error) {
-        
         return res.send('Error in adding student');
     }
 }
@@ -69,9 +68,9 @@ module.exports.downloadData = async function (req, res) {
                 Email: student.email,
                 Status: student.status,
                 College: student.college,
-                DSA: student.Dsa_final_score,
-                WEBD: student.Webd_final_score,
-                REACT: student.React_final_score,
+                DSA: student.DSA_FinalScore,
+                WEBD: student.WebD_FinalScore,
+                REACT: student.React_FinalScore,
                 CompanyName: interviewData.companyName,
                 InterviewDate: interviewData.date.toString().substring(4, 15),
                 Result: result

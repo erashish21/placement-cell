@@ -1,15 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const homecontroller = require('../controllers/home_controller');
 const passport = require('passport');
-router.get('/',homecontroller.signInPage);
-router.post('/Sign-in',passport.authenticate('local',{failureRedirect: '/' }),homecontroller.SignIn);
-router.get('/signUp',homecontroller.createSessionPage);
-router.get('/destroy_session' ,homecontroller.SignOut);
-router.post('/create_session', homecontroller.createSession);
-router.use('/employee',require('./employeedashboard'));
+const employee = require('../controllers/employee_controller');
+router.get('/', employee.SignInPage);
+router.post('/sign_in', passport.authenticate('local', { failureRedirect: '/' }), employee.SignIn);
+router.get('/signUp', employee.createSessionPage);
+router.get('/destroy_session' , employee.SignOut);
+router.post('/create_session', employee.createSession);
+router.use('/employee', require('./employeedashboard'));
 router.use('/student', require('./interview'));
-router.use('/result',require('./result'));
-router.use('/job',require('./job'));
-
-module.exports = router;
+router.use('/result', require('./result'));
+router.use('/job', require('./job'));
+module.exports = router; 

@@ -1,81 +1,115 @@
 const Employee = require('../models/employee');
-const Student =  require('../models/student');
-
-module.exports.dashboard = async function(req , res){
-   let studentList = await Student.find({});
-    return res.render('dashboard', {
-        title: 'Dashboard',
-        studentList:studentList
-    });
-}
-// render the sign up page
-module.exports.signUp = function(req, res){
-    if (req.isAuthenticated()){
-        return res.redirect('/employee/dashboard');
-    }
-    return res.render('SignUp', {
-        title: "Placement | Sign Up"
-    })
-}
-
-// render the sign in page
-module.exports.signIn = function(req, res){
-
-    if (req.isAuthenticated()){
-        return res.redirect('/employee/dashboard');
-    }
+const validator = require('validator');
+//sign in page for employee
+module.exports.SignInPage = async function (req, res) {
     return res.render('SignIn', {
-        title: "Placement | Sign In"
-    })
+        title: "SignIn"
+    });
 }
-
-// get the sign up data
-module.exports.create = function(req, res){
-    if (req.body.password != req.body.confirm_password){
-        return res.redirect('back');
+module.exports.SignIn = async function (req, res) {
+    try {
+        req.flash('success', 'Sign In SuccessFully');
+        return res.redirect('/employee/dashboard');
+    } catch (error) {
+        return res.send('<h1>Error in SignIn</h1>');
     }
+}
+// sign up page for employee
+module.exports.createSessionPage = async function (req, res) {
 
-    Employee.findOne({email: req.body.email}, function(err, user){
-        if(err){console.log('error in finding user in signing up'); return}
-
-        if (!user){
-            Employee.create(req.body, function(err, user){
-                if(err){console.log('error in creating user while signing up'); return}
-
-                return res.redirect('/employee/sign-in');
-            })
-        }else{
-            return res.redirect('back');
+    return res.render('SignUp', {
+        title: "Sign Up",
+        firstNameError: "",
+        lastNameError: "",
+        emailError: "",
+        passwordError: ""
+    });
+}
+module.exports.createSession = async function (req, res) {
+    try {
+        if (req.body.firstname.length === 0) {
+            return res.render('SignUp', {
+                title: "Sign Up",
+                firstNameError: 'FirstName cannot blank',
+                lastNameError: "",
+                emailError: "",
+                passwordError: ""
+            });
         }
-
-    });
-}
-
-// sign in and create a session for the user
-module.exports.createSession = function(req, res){
-    req.flash('success','Logged in Successfully');
-    return res.redirect('/employee/dashboard');
-}
-
-
-module.exports.dashboard =  async function(req, res,next){
-    if (req.isAuthenticated()){
-        let studentList = await Student.find({});
-   console.log('This is the student lis',studentList);
-    return res.render('employeedashboard', {
-        title: 'Dashboard',
-        studentList:studentList
-    });
-       
+        if (!isNaN(req.body.firstname)) {
+            return res.render('SignUp', {
+                title: "Sign Up",
+                firstNameError: 'FirstName is not number',
+                lastNameError: "",
+                emailError: "",
+                passwordError: ""
+            });
+        }
+        // for lastname
+        if (req.body.lastname.length === 0) {
+            return res.render('SignUp', {
+                title: "Sign Up",
+                firstNameError: "",
+                lastNameError: 'LastName is not empty',
+                emailError: "",
+                passwordError: ""
+            });
+        }
+        if (!isNaN(req.body.lastname)) {
+            return res.render('SignUp', {
+                title: "Sign Up",
+                firstNameError: "",
+                lastNameError: 'LastName is not number',
+                emailError: "",
+                passwordError: ""
+            });
+        }
+        // check on email
+        if (!validator.isEmail(req.body.email)) {
+            req.flash('error', '');
+            return res.render('SignUp', {
+                title: "Sign Up",
+                firstNameError: "",
+                lastNameError: "",
+                emailError: 'Please Enter Valid Email'
+            });
+        } else if (req.body.password.length < 2) {
+            return res.render('SignUp', {
+                title: "Sign Up",
+                firstNameError: "",
+                lastNameError: "",
+                emailError: "",
+                passwordError: 'Password is Small !!'
+            });
+        } else {
+            const employeePresent = await Employee.findOne({ email: req.body.email });
+            if (employeePresent) {
+                req.flash('error', 'Employee Already Exist !!');
+                return res.redirect('/');
+            } else {
+                const registerEmployee = await Employee(req.body);
+                registerEmployee.save();
+                req.flash('success', 'Sign Up SuccessFully !!');
+                return res.redirect('/');
+            }
+        }
+    } catch (error) {
+        return res.send("<h1>Error in SignUp</h1>");
     }
-    return res.redirect('/employee/sign-in', 
 
-    )}
-    
-module.exports.addStudent = function(req , res){
-    return res.render('Add_student',{
-        title: 'AddStudent'
-    });
+
 }
 
 
+module.exports.SignOut = function (req, res) {
+    req.logout(function(err) {
+      if (err) {
+        // Handle error
+        req.logout();
+      } else {
+        req.flash('success', 'Sign Out Successfully');
+        return res.redirect('/');
+      }
+    });
+  };
+  
