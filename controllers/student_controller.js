@@ -7,7 +7,7 @@ const fs = require('fs');
 // employee dashboard list
 module.exports.dashboard = async function (req, res) {
     const studentList = await Student.find({});
-    return res.render('employeeDashboard', {
+    return res.render('employeedashboard', {
         title: "EmployeeDashboard",
         studentList: studentList
     })
