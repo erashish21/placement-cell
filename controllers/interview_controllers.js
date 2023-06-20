@@ -13,7 +13,7 @@ module.exports.interviewPage = async function (req, res) {
 
 // form for interview allocation
 module.exports.interviewForm = async function (req, res) {
-    return res.render('formForInterviewAllocation', {
+    return res.render('Interview_form_Allocation', {
         title: "Interview Allocation",
         id: req.params.id
     })
