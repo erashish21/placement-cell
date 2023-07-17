@@ -11,4 +11,7 @@ router.use('/employee', require('./employeedashboard'));
 router.use('/student', require('./interview'));
 router.use('/result', require('./result'));
 router.use('/job', require('./job'));
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/employee/sign_in' }), employee.createSession);
+
 module.exports = router; 

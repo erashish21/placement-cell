@@ -1,4 +1,4 @@
-const validator = require('validator');
+
 const convertor = require('objects-to-csv');
 const Student = require('../models/student');
 const Interview = require('../models/interview');
@@ -20,27 +20,21 @@ module.exports.addStudentPage = async function (req, res) {
     })
 }
 module.exports.addStudent = async function (req, res) {
-    try {
-        if (!validator.isEmail(req.body.email)) {
-            req.flash('error' ,'Enter valid Email !!');
-            return res.redirect('back');
-        } else {
-            const presentStudent = await Student.findOne({ email: req.body.email });
-            if (presentStudent) {
-                req.flash('error' ,'Student Already Present!!');
-                return res.redirect('back');
-            } else {
-                const addStudent = await Student(req.body);
-                await addStudent.save();
-                req.flash('success' , 'Student Added Successfully !!');
-                return res.redirect('/employee/dashboard');
-            }
-        }
-    } catch (error) {
-        return res.send('Error in adding student');
+  try {
+    const presentStudent = await Student.findOne({ email: req.body.email });
+    if (presentStudent) {
+      req.flash('error', 'Student Already Present!!');
+      return res.redirect('back');
+    } else {
+      const addStudent = await Student(req.body);
+      await addStudent.save();
+      req.flash('success', 'Student Added Successfully !!');
+      return res.redirect('/employee/dashboard');
     }
-}
-
+  } catch (error) {
+    return res.send('Error in adding student');
+  }
+};
 module.exports.downloadData = async function (req, res) {
     const studentList = await Student.find({});
     const dataPresent = [];
@@ -68,9 +62,9 @@ module.exports.downloadData = async function (req, res) {
                 Email: student.email,
                 Status: student.status,
                 College: student.college,
-                DSA: student.DSA_FinalScore,
-                WEBD: student.WebD_FinalScore,
-                REACT: student.React_FinalScore,
+                DSA: student.Dsa_final_score,
+                WEBD: student.Webd_final_score,
+                REACT: student.React_final_score,
                 CompanyName: interviewData.companyName,
                 InterviewDate: interviewData.date.toString().substring(4, 15),
                 Result: result

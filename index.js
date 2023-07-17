@@ -9,6 +9,7 @@ const session = require('express-session');
 const mongoStore = require('connect-mongo');
 const passport = require('passport');
 const passportLocal = require(env.passport_path);
+const GooglePassport = require('./config/passport-google-oauth2-strategy');
 const customMware = require(env.customMware_path);
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
