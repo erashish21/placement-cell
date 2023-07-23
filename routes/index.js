@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const employee = require('../controllers/employee_controller');
 router.get('/', employee.SignInPage);
-router.post('/sign_in', passport.authenticate('local', { failureRedirect: '/' }), employee.SignIn);
+router.post('/sign_in', passport.authenticate('local', { failureRedirect: '/signUp' }), employee.SignIn);
 router.get('/signUp', employee.createSessionPage);
 router.get('/destroy_session' , employee.SignOut);
 router.post('/create_session', employee.createSession);
@@ -12,6 +12,6 @@ router.use('/student', require('./interview'));
 router.use('/result', require('./result'));
 router.use('/job', require('./job'));
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/employee/sign_in' }), employee.createSession);
+router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/sign_in' }), employee.createSession);
 
 module.exports = router; 

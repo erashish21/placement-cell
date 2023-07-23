@@ -1,9 +1,11 @@
 const express = require('express');
 const expressLayout = require('express-ejs-layouts');
 const env = require('./config/environment');
-const port = process.env.PORT|| 9001;
+//const port = process.env.PORT|| 9001;
+const port = 9001;
 const app = express();
 const db = require(env.db_path);
+
 const flash = require('connect-flash');
 const session = require('express-session');
 const mongoStore = require('connect-mongo');
