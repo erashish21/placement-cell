@@ -2,7 +2,7 @@ const Employee = require('../models/employee');
 const validator = require('validator');
 //sign in page for employee
 module.exports.SignInPage = async function (req, res) {
-    return res.render('signIn', {
+    return res.render('SignIn', {
         title: "SignIn"
     });
 }
