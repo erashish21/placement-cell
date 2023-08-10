@@ -13,5 +13,4 @@ router.use('/result', require('./result'));
 router.use('/job', require('./job'));
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/sign_in' }), employee.createSession);
-
 module.exports = router; 
