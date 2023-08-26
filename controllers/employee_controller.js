@@ -20,7 +20,7 @@ module.exports.SignIn = async function (req, res) {
 // sign up page for employee
 module.exports.createSessionPage = async function (req, res) {
 
-    return res.render('signUp', {
+    return res.render('SignUp', {
         title: "Sign Up",
         firstNameError: "",
         lastNameError: "",
@@ -31,7 +31,7 @@ module.exports.createSessionPage = async function (req, res) {
 module.exports.createSession = async function (req, res) {
     try {
         if (req.body.firstname.length === 0) {
-            return res.render('signUp', {
+            return res.render('SignUp', {
                 title: "Sign Up",
                 firstNameError: 'FirstName cannot blank',
                 lastNameError: "",
@@ -40,7 +40,7 @@ module.exports.createSession = async function (req, res) {
             });
         }
         if (!isNaN(req.body.firstname)) {
-            return res.render('signUp', {
+            return res.render('SignUp', {
                 title: "Sign Up",
                 firstNameError: 'FirstName is not number',
                 lastNameError: "",
@@ -50,7 +50,7 @@ module.exports.createSession = async function (req, res) {
         }
         // for lastname
         if (req.body.lastname.length === 0) {
-            return res.render('signUp', {
+            return res.render('SignUp', {
                 title: "Sign Up",
                 firstNameError: "",
                 lastNameError: 'LastName is not empty',
@@ -59,7 +59,7 @@ module.exports.createSession = async function (req, res) {
             });
         }
         if (!isNaN(req.body.lastname)) {
-            return res.render('signUp', {
+            return res.render('SignUp', {
                 title: "Sign Up",
                 firstNameError: "",
                 lastNameError: 'LastName is not number',
@@ -70,14 +70,14 @@ module.exports.createSession = async function (req, res) {
         // check on email
         if (!validator.isEmail(req.body.email)) {
             req.flash('error', '');
-            return res.render('signUp', {
+            return res.render('SignUp', {
                 title: "Sign Up",
                 firstNameError: "",
                 lastNameError: "",
                 emailError: 'Please Enter Valid Email'
             });
         } else if (req.body.password.length < 2) {
-            return res.render('signUp', {
+            return res.render('SignUp', {
                 title: "Sign Up",
                 firstNameError: "",
                 lastNameError: "",
